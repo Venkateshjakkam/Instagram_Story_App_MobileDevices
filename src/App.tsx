@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import StoryList from './components/StoryList';
+import StoryViewer from './components/StoryViewer';
+import stories from './stories.json';
+import { Story } from './types';
 
-function App() {
+const App: React.FC = () => {
+  const [selectedStory, setSelectedStory] = useState<Story | null>(null);
+
+  const handleSelectStory = (story: Story) => {
+    setSelectedStory(story);
+  };
+
+  const handleCloseStoryViewer = () => {
+    setSelectedStory(null);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1 className="app-title">Instagram Stories</h1>
+      <StoryList stories={stories} onSelectStory={handleSelectStory} />
+      {selectedStory && (
+        <StoryViewer
+          stories={stories}
+          initialStoryIndex={stories.findIndex((story) => story.id === selectedStory.id)}
+          onClose={handleCloseStoryViewer}
+        />
+      )}
     </div>
   );
-}
+};
 
 export default App;
