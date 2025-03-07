@@ -22,23 +22,21 @@ const mockStories: Story[] = [
 test("renders StoryList with all stories", () => {
   render(<StoryList stories={mockStories} onSelectStory={() => {}} />);
   
-  // Check if two images are rendered
+  
   expect(screen.getAllByRole("img").length).toBe(2);
 });
 
 test("renders StoryViewer with first story", () => {
   render(<StoryViewer stories={mockStories} initialStoryIndex={0} onClose={() => {}} />);
   
-  // Check if the first image is displayed
   expect(screen.getByRole("img")).toHaveAttribute("src");
 });
 
 test("renders StoryViewer with first story", () => {
   render(<StoryViewer stories={mockStories} initialStoryIndex={0} onClose={() => {}} />);
-  
-  // Get all images
+
   const images = screen.getAllByRole("img");
 
-  // Check if the first image is displayed correctly
+  
   expect(images[0]).toHaveAttribute("src");
 });
